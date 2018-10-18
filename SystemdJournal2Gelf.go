@@ -19,37 +19,40 @@ import (
 	https://github.com/Graylog2/graylog2-docs/wiki/GELF
 */
 type SystemdJournalEntry struct {
-	Cursor                    string `json:"__CURSOR"`
-	Realtime_timestamp        int64  `json:"__REALTIME_TIMESTAMP,string"`
-	Monotonic_timestamp       string `json:"__MONOTONIC_TIMESTAMP"`
-	Boot_id                   string `json:"_BOOT_ID"`
-	Transport                 string `json:"_TRANSPORT"`
-	Priority                  int32  `json:"PRIORITY,string"`
-	Syslog_facility           string `json:"SYSLOG_FACILITY"`
-	Syslog_identifier         string `json:"SYSLOG_IDENTIFIER"`
-	Message                   string `json:"MESSAGE"`
-	Pid                       string `json:"_PID"`
-	Uid                       string `json:"_UID"`
-	Gid                       string `json:"_GID"`
-	Comm                      string `json:"_COMM"`
-	Exe                       string `json:"_EXE"`
-	Cmdline                   string `json:"_CMDLINE"`
-	Systemd_cgroup            string `json:"_SYSTEMD_CGROUP"`
-	Systemd_session           string `json:"_SYSTEMD_SESSION"`
-	Systemd_owner_uid         string `json:"_SYSTEMD_OWNER_UID"`
-	Systemd_unit              string `json:"_SYSTEMD_UNIT"`
-	Source_realtime_timestamp string `json:"_SOURCE_REALTIME_TIMESTAMP"`
-	Machine_id                string `json:"_MACHINE_ID"`
-	Hostname                  string `json:"_HOSTNAME"`
-	Logger                    string `json:"LOGGER"`
-	EventId                   string `json:"EVENTID"`
-	Exception                 string `json:"EXCEPTION"`
-	Exception_type            string `json:"EXCEPTION_TYPE"`
-	Exception_Stacktrace      string `json:"EXCEPTION_STACKTRACE"`
-	Inner_exception           string `json:"INNEREXCEPTION"`
-	Inner_exception_type      string `json:"INNEREXCEPTION_TYPE"`
-	Inner_exception_Stacktrace string `json:"INNEREXCEPTION_STACKTRACE"`	
-	FullMessage               string
+	Cursor                         string `json:"__CURSOR"`
+	Realtime_timestamp             int64  `json:"__REALTIME_TIMESTAMP,string"`
+	Monotonic_timestamp            string `json:"__MONOTONIC_TIMESTAMP"`
+	Boot_id                        string `json:"_BOOT_ID"`
+	Transport                      string `json:"_TRANSPORT"`
+	Priority                       int32  `json:"PRIORITY,string"`
+	Syslog_facility                string `json:"SYSLOG_FACILITY"`
+	Syslog_identifier              string `json:"SYSLOG_IDENTIFIER"`
+	Message                        string `json:"MESSAGE"`
+	Pid                            string `json:"_PID"`
+	Uid                            string `json:"_UID"`
+	Gid                            string `json:"_GID"`
+	Comm                           string `json:"_COMM"`
+	Exe                            string `json:"_EXE"`
+	Cmdline                        string `json:"_CMDLINE"`
+	Systemd_cgroup                 string `json:"_SYSTEMD_CGROUP"`
+	Systemd_session                string `json:"_SYSTEMD_SESSION"`
+	Systemd_owner_uid              string `json:"_SYSTEMD_OWNER_UID"`
+	Systemd_unit                   string `json:"_SYSTEMD_UNIT"`
+	Source_realtime_timestamp      string `json:"_SOURCE_REALTIME_TIMESTAMP"`
+	Machine_id                     string `json:"_MACHINE_ID"`
+	Hostname                       string `json:"_HOSTNAME"`
+	Logger                         string `json:"LOGGER"`
+	EventId                        string `json:"EVENTID"`
+	Exception                      string `json:"EXCEPTION"`
+	Exception_type                 string `json:"EXCEPTION_TYPE"`
+	Exception_Stacktrace           string `json:"EXCEPTION_STACKTRACE"`
+	Inner_exception                string `json:"INNEREXCEPTION"`
+	Inner_exception_type           string `json:"INNEREXCEPTION_TYPE"`
+	Inner_exception_Stacktrace     string `json:"INNEREXCEPTION_STACKTRACE"`
+	Status_code                    int32  `json:"STATUSCODE"`
+	Request_path                   string `json:"REQUESTPATH"`
+	Request_id                     string `json:"REQUESTID"`
+	FullMessage                    string
 }
 
 // Strip date from message-content. Use named subpatterns to override other fields
@@ -90,8 +93,12 @@ func (this *SystemdJournalEntry) toGelf() *gelf.Message {
 		"Exception_Type":              this.Exception_type,
 		"Exception_Stacktrace":        this.Exception_Stacktrace,
 		"Inner_Exception":             this.Inner_exception,
-		"Inner_exception_type":        this.Inner_exception_type,
-		"Inner_exception_Stacktrace":  this.Inner_exception_Stacktrace,
+		"Inner_Exception_Type":        this.Inner_exception_type,
+		"Inner_Exception_Stacktrace":  this.Inner_exception_Stacktrace,
+		"Request_Id":                  this.Request_id,
+		"Request_Path":                this.Request_path,
+		"Status_Code":                 this.Status_code,
+		
 	}
 
 	// php-fpm refuses to fill identifier
