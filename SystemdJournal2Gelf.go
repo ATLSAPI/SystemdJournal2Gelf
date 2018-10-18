@@ -91,7 +91,7 @@ func (this *SystemdJournalEntry) toGelf() *gelf.Message {
 		"Exception_Stacktrace":        this.Exception_Stacktrace,
 		"Inner_Exception":             this.Inner_exception,
 		"Inner_exception_type":        this.Inner_exception_type,
-		"Inner_exception_Stacktrace":  this.Inner_exception_Stacktrace
+		"Inner_exception_Stacktrace":  this.Inner_exception_Stacktrace,
 	}
 
 	// php-fpm refuses to fill identifier
