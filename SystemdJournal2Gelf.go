@@ -41,6 +41,14 @@ type SystemdJournalEntry struct {
 	Source_realtime_timestamp string `json:"_SOURCE_REALTIME_TIMESTAMP"`
 	Machine_id                string `json:"_MACHINE_ID"`
 	Hostname                  string `json:"_HOSTNAME"`
+	Logger                    string `json:"LOGGER"`
+	EventId                   string `json:"EVENTID"`
+	Exception                 string `json:"EXCEPTION"`
+	Exception_type            string `json:"EXCEPTION_TYPE"`
+	Exception_Stacktrace      string `json:"EXCEPTION_STACKTRACE"`
+	Inner_exception           string `json:"INNEREXCEPTION"`
+	Inner_exception_type      string `json:"INNEREXCEPTION_TYPE"`
+	Inner_exception_Stacktrace string `json:"INNEREXCEPTION_STACKTRACE"`	
 	FullMessage               string
 }
 
@@ -73,9 +81,17 @@ var priorities = map[string]int32{
 
 func (this *SystemdJournalEntry) toGelf() *gelf.Message {
 	var extra = map[string]interface{}{
-		"Boot_id": this.Boot_id,
-		"Pid":     this.Pid,
-		"Uid":     this.Uid,
+		"Boot_id":                     this.Boot_id,
+		"Pid":                         this.Pid,
+		"Uid":                         this.Uid,
+		"Logger":                      this.Logger,
+		"EventId":                     this.EventId,
+		"Exception":                   this.Exception,
+		"Exception_Type":              this.Exception_type,
+		"Exception_Stacktrace":        this.Exception_Stacktrace,
+		"Inner_Exception":             this.Inner_exception,
+		"Inner_exception_type":        this.Inner_exception_type,
+		"Inner_exception_Stacktrace":  this.Inner_exception_Stacktrace
 	}
 
 	// php-fpm refuses to fill identifier
