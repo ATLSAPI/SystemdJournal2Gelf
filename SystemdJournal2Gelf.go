@@ -49,7 +49,10 @@ type SystemdJournalEntry struct {
 	Inner_exception                string `json:"INNEREXCEPTION"`
 	Inner_exception_type           string `json:"INNEREXCEPTION_TYPE"`
 	Inner_exception_Stacktrace     string `json:"INNEREXCEPTION_STACKTRACE"`
-	Status_code                    int32  `json:"STATUSCODE"`
+	Status_code                    string `json:"STATUSCODE"`
+	Query_string                   string `json:"QUERYSTRING"`
+	Member_id                      string `json:"MEMBERID"`
+	Correlation_id                 string `json:"CORRELATIONID"`
 	Request_path                   string `json:"REQUESTPATH"`
 	Request_id                     string `json:"REQUESTID"`
 	FullMessage                    string
@@ -98,7 +101,9 @@ func (this *SystemdJournalEntry) toGelf() *gelf.Message {
 		"Request_Id":                  this.Request_id,
 		"Request_Path":                this.Request_path,
 		"Status_Code":                 this.Status_code,
-		
+		"Query_String":                this.Query_string,
+		"Correlation_Id":              this.Correlation_id,
+		"Member_Id":                   this.Member_id,
 	}
 
 	// php-fpm refuses to fill identifier
